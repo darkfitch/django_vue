@@ -18,7 +18,12 @@ from django.contrib import admin
 from course import urls as course_urls
 
 
+
+from course.tests import *
+
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^courseAPI/(?P<version>\w+)', include(course_urls)),
+    url(r'test/$',test1)
 ]

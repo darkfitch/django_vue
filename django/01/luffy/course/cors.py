@@ -1,5 +1,9 @@
 from django.utils.deprecation import MiddlewareMixin
 
+from django.middleware.common import CommonMiddleware
+
+
+
 class Cors(MiddlewareMixin):
 
     def process_response(self,request,response):

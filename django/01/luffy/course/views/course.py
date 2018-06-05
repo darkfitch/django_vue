@@ -4,8 +4,6 @@ from rest_framework.response import Response
 from course import serializer
 
 
-
-
 # class Course(APIView):
 #     '''
 #     课程表的视图
@@ -43,13 +41,16 @@ def use_try(obj,ser,pk=None,*args,**kwargs):
     :return: 返回序列化后的参数,并且在这里将返回值一起封装了
     '''
     ret = {'code': 1000, 'data': None}
-    try:
-        ser_obj  = ser(obj,many=not pk)
-        print(ser_obj)
-        ret['data'] = ser_obj.data
-    except Exception as e:
-        ret['code'] = 4000
-        ret['error'] = '数据获取失败,请稍后再试'
+    if obj:
+        try:
+            ser_obj  = ser(obj,many=not pk)
+            ret['data'] = ser_obj.data
+        except Exception as e:
+            ret['code'] = 4000
+            ret['error'] = '数据获取失败,请稍后再试'
+    else:
+        ret['code'] = 4040
+        ret['error'] = '暂无数据'
     return ret
 
 
@@ -71,6 +72,50 @@ class Course(APIView):
         else:
             obj = models.Course.objects.filter(id=pk).first()
         ret = use_try(obj, serializer.CourseSer, pk)
+        return Response(ret)
+
+
+class CourseDetial(APIView):
+    '''
+    课程细节
+    '''
+    def get(self,request,pk=None,*args,**kwargs):
+        '''
+        get方法根据是否有pk返回单条或多条数据
+        :param request:
+        :param pk:
+        :param args:
+        :param kwargs:
+        :return:
+        '''
+        if not pk:
+            obj = models.CourseDetail.objects.all()
+        else:
+            obj = models.CourseDetail.objects.filter(id=pk).first()
+            # print(obj,'obj')
+            # print(type(obj),'type')
+        ret = use_try(obj, serializer.CourseDetailSer, pk)
+        return Response(ret)
+
+
+class Article(APIView):
+    '''
+    课程细节
+    '''
+    def get(self,request,pk=None,*args,**kwargs):
+        '''
+        get方法根据是否有pk返回单条或多条数据
+        :param request:
+        :param pk:
+        :param args:
+        :param kwargs:
+        :return:
+        '''
+        if not pk:
+            obj = models.Article.objects.all()
+        else:
+            obj = models.Article.objects.filter(id=pk).first()
+        ret = use_try(obj, serializer.Articleser, pk)
         return Response(ret)
 
 

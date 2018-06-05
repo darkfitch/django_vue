@@ -2,35 +2,27 @@
     <div>
         <p><input type="text" placeholder="用户名" v-model="username"></p>
         <p><input type="password" placeholder="密码" v-model="password"></p>
-        <input type="submit" value="提交" @click="toLogin">
-        <!-- <a @click="toregister">点击注册</a> -->
-        <router-link to="register">点击注册</router-link>
+        <input type="submit" value="提交" @click="doregister">
     </div>
-    
 </template>
 
 
 
 <script>
-
 export default{
-    name:'login',
     data(){
         return{
             username:'',
-            password:''
+            password:'',
         }
     },
     methods:{
-        // toregister(){
-
-        //     this.$router.push({name:'register'})
-        // },
-        toLogin(){
-            
-            var that = this
+        
+        doregister(){
+            var that= this
+            // console.log(123)
             this.$axios.request({
-                url:'http://localhost:8000/courseAPI/v1/auth/',
+                url:'http://localhost:8000/courseAPI/v1/resiger/',
                 method:'POST',
                 data:{
                     user:this.username,
@@ -55,6 +47,7 @@ export default{
 }
 
 </script>
+
 
 
 <style>

@@ -1,25 +1,20 @@
 <template>
 
     <div>
-        <!-- course
-        <!-- <img src="../pic/2.jpg" alt=""> -->
-        <!-- <ul v-for="row in courseList">
-        <!-- <li><router-link :to="/detail">{{row.title}}</router-link></li> -->
-        <!-- <li> -->
-           <!-- {{row.id}} -->
-            <!-- <img :src="row.pic_src" alt=""> -->
-            <!-- <router-link :to="{path:'/detail',params:{id:row.id}}">{{row.title}}</router-link> -->
-            <!-- <router-link :to="{name:'detail',params:{id:row.id}}">{{row.title}}</router-link> -->
-        <!-- </li> -->
-        <!-- </ul> -->
 
-        <div v-for="row in courseList">
-            <div style="width: 350px;float: left">
+        <div v-for="row in courseList" >
+            <div style="width: 350px;float: left;margin-top:100px">
+                <img :src="row.course_img" alt="图片暂时无法加载">
+                <h3>
+                    <router-link :to="{name:'detail',params:{id:row.id}}">{{row.name}}</router-link>
+                </h3>
+                <span>{{row.level}}</span>
+                <div>
+                    <span>{{row.beief}}</span>
+                </div>
 
-        <h3><router-link :to="{name:'detail',params:{id:row.id}}">{{row.title}}</router-link></h3>
-        <p>{{row.level}}</p>
-      </div>
-    </div>
+            </div>
+        </div>
         <router-view></router-view>
     </div>
 </template>
@@ -32,6 +27,7 @@ export default{
     name:'course',
     data(){
         return{
+            
             courseList:[],
         }
     },
@@ -42,7 +38,7 @@ export default{
         get_courselist(){
             var that = this
             this.$axios.request({
-                url:'http://127.0.0.1:8000/collegeAPI/v1/course/',
+                url:'http://127.0.0.1:8000/courseAPI/v1/course/',
                 method:'GET'
             }).then(function(ret){
                 if(ret.data.code===1000){

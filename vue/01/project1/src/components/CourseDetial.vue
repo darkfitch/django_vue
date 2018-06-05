@@ -1,32 +1,44 @@
 <template>
-    <div>
-        <h1>课程详细</h1>
-        <p><b>{{detial.course_name}}</b>
-            <span>{{detial.course_level}}</span>
-        </p>
-        <p>{{detial.slogen}}</p>
-        <p>{{detial.reason}}</p>
-        <p>{{detial.describe}}</p>
-        
-        <div>
-            <p>课程章节:</p>
-            <ul>
-                <li v-for="item in detial.chapters">
-                    <p><b>{{item.num}}</b>{{item.name}}</p>
+    <div >
+        <div v-if="status">
+            <h1>课程详细</h1>
+            <p><b>{{detial.name}}</b>
+                <span>{{detial.level}}</span>
+            </p>
+            <img :src="course_img" alt="图片暂时无法加载">
+            <p>{{detial.course_slogan}}</p>
+            <p>{{detial.video_brief_link}}</p>
+            <p>{{detial.why_study}}</p>
+            <p>{{detial.what_to_study_brief}}</p>
+            <p>{{detial.career_improvement}}</p>
+            
+            <div>
+                <p>课程章节:</p>
+                <ul>
+                    <li v-for="item in detial.coursechapter">
+                        <p><b>{{item.chapter}}</b>{{item.name}}</p>
 
-                </li>
-            </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <p>推荐:</p>
+                <ul>
+                    <!-- <li v-for="item in detial.recommendation">
+                        <a @click="to_newdcourse(item.id)"><p>{{item.title}}</p></a>
+                    </li> -->
+                </ul>
+            </div>
         </div>
 
-        <div>
-            <p>推荐:</p>
-            <ul>
-                <li v-for="item in detial.recommendation">
-                    <a @click="to_newdcourse(item.id)"><p>{{item.title}}</p></a>
-                </li>
-            </ul>
+        <div v-else>
+            <h1>-{{detial}}-</h1>
         </div>
+
     </div>
+
+    
 
 </template>
 
@@ -38,6 +50,7 @@ export default{
     name:'coursedetial',
     data(){
         return{
+            status:true,
             detial:''
         }
     },
@@ -49,17 +62,22 @@ export default{
         show_datas(nid){           
             var that = this
             this.$axios.request({
-                url:'http://localhost:8000/collegeAPI/v1/course/'+nid+'/',
+                url:'http://localhost:8000/courseAPI/v1/coursedetial/'+nid+'/',
                 methods:'GET'
             }).then(function(args){
                 if(args.data.code === 1000){
                     that.detial = args.data.data
                 }else{
-                    alert(args.data.errorMessage)
+                    that.status=false,
+                    that.detial = args.data.error;
+                    
                 }
             }).catch(function (ret) {
                 
             })
+        },
+        course_img(){
+
         },
         to_newdcourse(args){
             this.show_datas(args)
