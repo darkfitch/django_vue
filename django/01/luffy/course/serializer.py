@@ -241,19 +241,23 @@ class CourseDetailSer(serializers.ModelSerializer):
     '''
     recommend_courses = serializers.SerializerMethodField()
     coure_name = serializers.CharField(source='course.name')
+    coure_level = serializers.CharField(source='course.get_level_display')
     teachers = serializers.SerializerMethodField()
     coursechapter = serializers.SerializerMethodField()
 
+
     price_policy = serializers.SerializerMethodField()
+    asked_question = serializers.SerializerMethodField()
 
     class Meta:
         model = models.CourseDetail
-        fields = ['coure_name','id','hours','course_slogan',
+        fields = ['coure_name','coure_level','id','hours','course_slogan',
                   'video_brief_link','why_study',
                   'what_to_study_brief','career_improvement',
                   'coursechapter','teachers',
                   'recommend_courses',
                     'price_policy',
+                  'asked_question'
                   ]
 
 
@@ -288,6 +292,10 @@ class CourseDetailSer(serializers.ModelSerializer):
         ret = obj.course.price_policy.all()
         # return [{'id':row.id,'price':row.price,'valid_period':row.get_valid_period_display} for row in ret]
         return [{'id':row.id,'price':row.price,'valid_period':row.valid_period} for row in ret]
+
+    def get_asked_question(self,obj):
+        ret = obj.course.asked_question.all()
+        return [{'id':row.id,'question':row.question,'answer':row.answer} for row in ret]
 
 
 class Articleser(serializers.ModelSerializer):

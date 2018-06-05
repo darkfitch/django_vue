@@ -253,6 +253,50 @@ class Homework(models.Model):
         return "%s - %s" % (self.chapter, self.title)
 
 
+# class CourseReview(models.Model):
+#     """课程评价"""
+#     enrolled_course = models.OneToOneField("EnrolledCourse")
+#     about_teacher = models.FloatField(default=0, verbose_name="讲师讲解是否清晰")
+#     about_video = models.FloatField(default=0, verbose_name="内容实用")
+#     about_course = models.FloatField(default=0, verbose_name="课程内容通俗易懂")
+#     review = models.TextField(max_length=1024, verbose_name="评价")
+#     disagree_number = models.IntegerField(default=0, verbose_name="踩")
+#     agree_number = models.IntegerField(default=0, verbose_name="赞同数")
+#     tags = models.ManyToManyField("Tags", blank=True, verbose_name="标签")
+#     date = models.DateTimeField(auto_now_add=True, verbose_name="评价日期")
+#     is_recommend = models.BooleanField("热评推荐", default=False)
+#     hide = models.BooleanField("不在前端页面显示此条评价", default=False)
+#
+#     def __str__(self):
+#         return "%s-%s" % (self.enrolled_course.course, self.review)
+#
+#     class Meta:
+#         verbose_name_plural = "13. 课程评价（购买课程后才能评价）"
+#
+#
+# class DegreeCourseReview(models.Model):
+#     """学位课程评价
+#     为了以后可以定制单独的评价内容，所以不与普通课程的评价混在一起，单独建表
+#     """
+#     enrolled_course = models.ForeignKey("EnrolledDegreeCourse")
+#     course = models.ForeignKey("Course", verbose_name="评价学位模块", blank=True, null=True,
+#                                help_text="不填写即代表评价整个学位课程", limit_choices_to={'course_type': 2})
+#     about_teacher = models.FloatField(default=0, verbose_name="讲师讲解是否清晰")
+#     about_video = models.FloatField(default=0, verbose_name="视频质量")
+#     about_course = models.FloatField(default=0, verbose_name="课程")
+#     review = models.TextField(max_length=1024, verbose_name="评价")
+#     disagree_number = models.IntegerField(default=0, verbose_name="踩")
+#     agree_number = models.IntegerField(default=0, verbose_name="赞同数")
+#     tags = models.ManyToManyField("Tags", blank=True, verbose_name="标签")
+#     date = models.DateTimeField(auto_now_add=True, verbose_name="评价日期")
+#     is_recommend = models.BooleanField("热评推荐", default=False)
+#     hide = models.BooleanField("不在前端页面显示此条评价", default=False)
+#
+#     def __str__(self):
+#         return "%s-%s" % (self.enrolled_course, self.review)
+#
+#     class Meta:
+#         verbose_name_plural = "14. 学位课评价（购买课程后才能评价）"
 
 
 
