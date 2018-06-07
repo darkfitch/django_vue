@@ -25,3 +25,10 @@ admin.site.register(models.Account)
 admin.site.register(models.UserAuthToken)
 # admin.site.register(models.CourseReview)
 # admin.site.register(models.DegreeCourseReview)
+
+
+admin.site.register(models.Coupon)
+admin.site.register(models.CouponRecord)
+admin.site.register(models.Order)
+admin.site.register(models.OrderDetail)
+admin.site.register(models.TransactionRecord)

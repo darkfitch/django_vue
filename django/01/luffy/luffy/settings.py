@@ -127,3 +127,17 @@ REST_FRAMEWORK={
     'DEFAULE_VERSION':'V1',
     'VERSION_PARAM':'version'
 }
+
+
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://140.143.227.206:6379",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "CONNECTION_POOL_KWARGS": {"max_connections": 100},
+             "PASSWORD": "1234",
+        }
+    }
+}

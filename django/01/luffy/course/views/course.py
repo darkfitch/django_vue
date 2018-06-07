@@ -100,7 +100,7 @@ class CourseDetial(APIView):
 
 class Article(APIView):
     '''
-    课程细节
+    文章页
     '''
     def get(self,request,pk=None,*args,**kwargs):
         '''
@@ -113,9 +113,11 @@ class Article(APIView):
         '''
         if not pk:
             obj = models.Article.objects.all()
+            ret = use_try(obj, serializer.Articleser, pk)
+
         else:
             obj = models.Article.objects.filter(id=pk).first()
-        ret = use_try(obj, serializer.Articleser, pk)
+            ret = use_try(obj, serializer.ArticleDetialSer, pk)
         return Response(ret)
 
 

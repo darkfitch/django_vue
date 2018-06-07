@@ -212,15 +212,11 @@ class CourseSer(serializers.ModelSerializer):
         fields = ['id','name','level','beief', 'course_img', 'sub_category', 'course_type','coursechapter_set']
         # fields = ['name','coursechapter_set']
 
-
-
     # def get_coursechapter_set(self,obj):
     #     currentser = CurrentSer()
     #     ret = currentser.get_related_ser(tabel_name='coursechapter')
     #     return [item.name for item in ret]
     #     # return ret
-
-
 
     def get_coursechapter_set(self, obj):
         ret = obj.coursechapter_set.all()
@@ -305,4 +301,24 @@ class Articleser(serializers.ModelSerializer):
 
     class Meta:
         model = models.Article
+        fields = ['id','content','date','comment_num','agree_num','view_num','brief']
+
+
+class ArticleDetialSer(serializers.ModelSerializer):
+    '''
+    文章详情
+    '''
+
+    class Meta:
+            model = models.Article
+            fields = '__all__'
+
+
+class OrderViewSer(serializers.ModelSerializer):
+    '''
+    订单序列化
+    '''
+
+    class Meta:
+        model = models.Order
         fields = '__all__'

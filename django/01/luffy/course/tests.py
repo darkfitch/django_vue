@@ -65,6 +65,8 @@ from django.contrib.sessions.middleware import SessionMiddleware
 #     print(type(ret))
 #     return HttpResponse(ret)
 
+
+
 def test1(version = None):
     # obj = models.CourseDetail.objects.filter(id=1).first().course.price_policy.all()
     obj = models.CourseDetail.objects.filter(id=1).first().course.asked_question.all()
@@ -72,6 +74,7 @@ def test1(version = None):
     print(obj)
     print(type(obj))
     return HttpResponse(obj)
+
 
 
 
